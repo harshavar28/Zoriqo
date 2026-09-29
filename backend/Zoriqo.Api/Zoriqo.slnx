@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../Zoriqo.Application/Zoriqo.Application.csproj" />
+  <Project Path="../Zoriqo.Domain/Zoriqo.Domain.csproj" />
+  <Project Path="../Zoriqo.Infrastructure/Zoriqo.Infrastructure.csproj" />
+  <Project Path="Zoriqo.Api.csproj" />
+</Solution>

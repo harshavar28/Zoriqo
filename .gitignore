@@ -1,0 +1,24 @@
+# Visual Studio and .NET
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Expo and Node
+node_modules/
+.expo/
+dist/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+
+# Signing credentials and builds
+*.jks
+*.keystore
+credentials.json
+*.apk
+*.aab
