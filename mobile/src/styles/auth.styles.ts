@@ -1,0 +1,200 @@
+import { Platform, StyleSheet } from 'react-native';
+
+const colors = {
+  background: '#FBF6EA',
+  surface: '#FFFFFF',
+  input: '#FFFDFA',
+  text: '#173A2F',
+  muted: '#7A7461',
+  border: '#D9CFAF',
+  softBorder: '#EAE2CF',
+  cream: '#F3E9D2',
+  gold: '#C9992E',
+  error: '#A32929',
+};
+
+export const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scroll: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 28,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 460,
+    alignSelf: 'center',
+  },
+  brand: {
+    alignItems: 'center',
+    marginBottom: 28,
+  },
+  logo: {
+    width: 76,
+    height: 76,
+    marginBottom: 12,
+  },
+  brandName: {
+    fontSize: 34,
+    fontFamily: Platform.OS === 'android' ? 'serif' : 'Georgia',
+    color: colors.text,
+  },
+  tagline: {
+    marginTop: 6,
+    fontSize: 14,
+    color: colors.muted,
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: colors.surface,
+    borderRadius: 28,
+    padding: 22,
+    borderWidth: 1,
+    borderColor: colors.softBorder,
+  },
+  switch: {
+    flexDirection: 'row',
+    backgroundColor: colors.cream,
+    borderRadius: 16,
+    padding: 4,
+    marginBottom: 26,
+  },
+  switchItem: {
+    flex: 1,
+    minHeight: 46,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    paddingHorizontal: 6,
+  },
+  switchSelected: {
+    backgroundColor: colors.surface,
+  },
+  switchText: {
+    fontSize: 14,
+    color: colors.muted,
+    textAlign: 'center',
+  },
+  switchTextSelected: {
+    color: colors.text,
+    fontWeight: '700',
+  },
+  heading: {
+    fontSize: 29,
+    fontFamily: Platform.OS === 'android' ? 'serif' : 'Georgia',
+    color: colors.text,
+  },
+  description: {
+    color: colors.muted,
+    fontSize: 14,
+    lineHeight: 22,
+    marginTop: 8,
+    marginBottom: 24,
+  },
+  field: {
+    marginBottom: 18,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.text,
+    marginBottom: 8,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 14,
+    backgroundColor: colors.input,
+  },
+  input: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: 54,
+    paddingHorizontal: 15,
+    paddingVertical: 14,
+    color: colors.text,
+    fontSize: 16,
+  },
+  eyeButton: {
+    width: 48,
+    minHeight: 54,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  eye: {
+    width: 24,
+    height: 24,
+  },
+  error: {
+    color: colors.error,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  notice: {
+    color: colors.text,
+    backgroundColor: colors.cream,
+    padding: 12,
+    borderRadius: 12,
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  submit: {
+    backgroundColor: colors.gold,
+    minHeight: 54,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 6,
+    padding: 14,
+  },
+  submitText: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  pressed: {
+    opacity: 0.7,
+  },
+  footer: {
+    marginTop: 24,
+    textAlign: 'center',
+    fontSize: 13,
+    color: colors.muted,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    gap: 12,
+  },
+  loadingText: {
+    color: colors.muted,
+    fontSize: 15,
+  },
+  profile: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  profileName: {
+    fontSize: 27,
+    color: colors.text,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  profileEmail: {
+    fontSize: 15,
+    color: colors.muted,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+});

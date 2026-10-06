@@ -1,0 +1,55 @@
+ZORIQO — ESSENTIAL ASSETS
+
+Use this smaller pack instead of the previous pack.
+
+SETUP
+1. Extract the ZIP.
+2. Copy its assets folder into C:\Project\Zoriqo\mobile\.
+   Merge with the existing assets folder; keep unrelated files.
+3. Keep svg-originals somewhere convenient for future editing.
+   The app only needs the PNGs. No SVG package is required.
+
+FIVE ASSETS
+assets/brand/zoriqo-logo.png — 420 x 420; original rounded teal logo.
+  Reuse on login, registration, welcome and about screens.
+assets/brand/app-icon.png — 1024 x 1024; opaque square launcher artwork.
+assets/brand/android-foreground.png — 1024 x 1024; transparent foreground.
+  Pair with background color #0E5C48 for Android's adaptive icon.
+assets/icons/eye.png — 72 x 72; display at 24 x 24 to show a hidden password.
+assets/icons/eye-off.png — 72 x 72; display at 24 x 24 to hide a visible password.
+  Reuse these controls in login, registration and password reset.
+
+DISPLAY IN REACT NATIVE
+Example inside mobile/src/app/index.tsx:
+
+import { Image } from 'react-native';
+
+<Image
+  source={require('../../assets/brand/zoriqo-logo.png')}
+  style={{ width: 96, height: 96 }}
+  resizeMode="contain"
+/>
+
+<Image
+  source={require('../../assets/icons/eye.png')}
+  style={{ width: 24, height: 24 }}
+/>
+
+Paths depend on the importing file's location. Always set display dimensions.
+Use the eye images inside a pressable control with accessible labels
+"Show password" / "Hide password". The images alone do not toggle a password.
+
+COLORS
+Screen background: #FBF6EA
+Text: #173A2F
+Primary button: #C9992E
+Brand teal: #0E5C48
+Logo gold: #D9B45B
+
+Keep the primary logo's original colors. Utility icons can be tinted through
+React Native Image's tintColor style.
+
+FUTURE USE
+The svg-originals folder holds scalable vector originals of the same five
+assets. These are editable source files, not additional icon designs.
+This pack contains no login functionality or changes to app configuration.
