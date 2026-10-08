@@ -7,6 +7,8 @@ using Zoriqo.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.Extensions.Options;
+using Zoriqo.Domain.Entities;
+using Zoriqo.Infrastructure.Data;
 
 namespace Zoriqo.Api.Controllers;
 
@@ -17,16 +19,23 @@ public class AuthController : ControllerBase
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly ZoriqoDbContext _db;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+    public AuthController(
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager,
+        ZoriqoDbContext db)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _db = db;
     }
 
-    [HttpPost("registerr")]
+    [AllowAnonymous]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(
-        [FromBody] RegisterRequest request)
+    [FromBody] RegisterRequest request,
+    CancellationToken cancellationToken)
     {
         var fullName = request.FullName.Trim();
         var email = request.Email.Trim();
@@ -49,45 +58,73 @@ public class AuthController : ControllerBase
             });
         }
 
+        var now = DateTime.UtcNow;
+
         var user = new ApplicationUser
         {
             FullName = fullName,
             Email = email,
-
-            // Email is the login identifier for now.
-            UserName = email
+            UserName = email,
+            CreatedAtUtc = now
         };
 
-        IdentityResult result;
+        await using var transaction =
+            await _db.Database.BeginTransactionAsync(cancellationToken);
 
         try
         {
-            // Identity hashes the password before storing it.
-            result = await _userManager.CreateAsync(
+            var result = await _userManager.CreateAsync(
                 user,
                 request.Password);
+
+            if (!result.Succeeded)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+
+                var duplicate = result.Errors.Any(error =>
+                    error.Code == "DuplicateEmail" ||
+                    error.Code == "DuplicateUserName");
+
+                if (duplicate)
+                {
+                    return Conflict(new
+                    {
+                        message = "An account with this email already exists."
+                    });
+                }
+
+                return BadRequest(new
+                {
+                    message = "Unable to create account.",
+                    errors = result.Errors
+                        .Select(error => error.Description)
+                        .ToArray()
+                });
+            }
+
+            _db.UserProfiles.Add(new UserProfile
+            {
+                UserId = user.Id,
+                CreatedAtUtc = now,
+                UpdatedAtUtc = now,
+                Version = 1
+            });
+
+            await _db.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
         }
         catch (DbUpdateException exception)
             when (exception.InnerException is PostgresException
             {
-                SqlState: PostgresErrorCodes.UniqueViolation
+                SqlState: PostgresErrorCodes.UniqueViolation,
+                ConstraintName: "EmailIndex" or "UserNameIndex"
             })
         {
-            // Handles simultaneous registrations with the same email.
+            await transaction.RollbackAsync(cancellationToken);
+
             return Conflict(new
             {
                 message = "An account with this email already exists."
-            });
-        }
-
-        if (!result.Succeeded)
-        {
-            return BadRequest(new
-            {
-                message = "Unable to create account.",
-                errors = result.Errors
-                    .Select(error => error.Description)
-                    .ToArray()
             });
         }
 

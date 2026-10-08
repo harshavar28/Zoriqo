@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zoriqo.Infrastructure.Data;
@@ -11,9 +12,11 @@ using Zoriqo.Infrastructure.Data;
 namespace Zoriqo.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ZoriqoDbContext))]
-    partial class ZoriqoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261008051530_AddSkills")]
+    partial class AddSkills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

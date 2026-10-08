@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Zoriqo.Domain.Entities;
+using Zoriqo.Infrastructure.Data.Configurations;
 using Zoriqo.Infrastructure.Identity;
+using Zoriqo.Domain.Entities;
+using Zoriqo.Infrastructure.Data.Configurations;
 
 namespace Zoriqo.Infrastructure.Data;
 
@@ -12,11 +16,16 @@ public class ZoriqoDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
+    public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
+    public DbSet<Skill> Skills => Set<Skill>();
+
+    public DbSet<UserSkill> UserSkills => Set<UserSkill>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        // Keep account tables in their own database schema.
+        // Existing account tables stay in this schema.
         builder.HasDefaultSchema("zoriqo_identity");
 
         builder.Entity<ApplicationUser>(user =>
@@ -34,5 +43,10 @@ public class ZoriqoDbContext : IdentityDbContext<ApplicationUser>
             user.HasIndex(x => x.NormalizedEmail)
                 .IsUnique();
         });
+
+        // Profile table explicitly uses the zoriqo schema.
+        builder.ApplyConfiguration(new UserProfileConfiguration());
+        builder.ApplyConfiguration(new SkillConfiguration());
+        builder.ApplyConfiguration(new UserSkillConfiguration());
     }
 }

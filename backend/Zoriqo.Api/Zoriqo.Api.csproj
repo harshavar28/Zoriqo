@@ -25,14 +25,4 @@
     <ProjectReference Include="..\Zoriqo.Infrastructure\Zoriqo.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Hubs\" />
-    <Folder Include="Middleware\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

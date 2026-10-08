@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zoriqo.Infrastructure.Data;
@@ -11,9 +12,11 @@ using Zoriqo.Infrastructure.Data;
 namespace Zoriqo.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ZoriqoDbContext))]
-    partial class ZoriqoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261007071605_AddUserProfiles")]
+    partial class AddUserProfiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,119 +158,6 @@ namespace Zoriqo.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", "zoriqo_identity");
                 });
 
-            modelBuilder.Entity("Zoriqo.Domain.Entities.Skill", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at_utc");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("NormalizedName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("normalized_name");
-
-                    b.Property<DateTime>("UpdatedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at_utc");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("ux_skills_normalized_name");
-
-                    b.ToTable("skills", "zoriqo");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111101"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Interior painting",
-                            NormalizedName = "INTERIOR PAINTING",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111102"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Wall finishing",
-                            NormalizedName = "WALL FINISHING",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111103"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Colour selection",
-                            NormalizedName = "COLOUR SELECTION",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111104"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Carpentry",
-                            NormalizedName = "CARPENTRY",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111105"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Plumbing",
-                            NormalizedName = "PLUMBING",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111106"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Electrical work",
-                            NormalizedName = "ELECTRICAL WORK",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111107"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Web development",
-                            NormalizedName = "WEB DEVELOPMENT",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = new Guid("11111111-1111-4111-8111-111111111108"),
-                            CreatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Graphic design",
-                            NormalizedName = "GRAPHIC DESIGN",
-                            UpdatedAtUtc = new DateTime(2026, 10, 8, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
-                });
-
             modelBuilder.Entity("Zoriqo.Domain.Entities.UserProfile", b =>
                 {
                     b.Property<string>("UserId")
@@ -321,56 +211,6 @@ namespace Zoriqo.Infrastructure.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("user_profiles", "zoriqo");
-                });
-
-            modelBuilder.Entity("Zoriqo.Domain.Entities.UserSkill", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at_utc");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)")
-                        .HasColumnName("description");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<Guid>("SkillId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("skill_id");
-
-                    b.Property<DateTime>("UpdatedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at_utc");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("user_id");
-
-                    b.Property<long>("Version")
-                        .IsConcurrencyToken()
-                        .HasColumnType("bigint")
-                        .HasColumnName("version");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SkillId", "UserId")
-                        .HasDatabaseName("ix_user_skills_active_skill_user")
-                        .HasFilter("is_active = true");
-
-                    b.HasIndex("UserId", "SkillId")
-                        .IsUnique()
-                        .HasDatabaseName("ux_user_skills_user_skill");
-
-                    b.ToTable("user_skills", "zoriqo");
                 });
 
             modelBuilder.Entity("Zoriqo.Infrastructure.Identity.ApplicationUser", b =>
@@ -506,23 +346,6 @@ namespace Zoriqo.Infrastructure.Data.Migrations
                         .HasForeignKey("Zoriqo.Domain.Entities.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Zoriqo.Domain.Entities.UserSkill", b =>
-                {
-                    b.HasOne("Zoriqo.Domain.Entities.Skill", "Skill")
-                        .WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Zoriqo.Infrastructure.Identity.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
                 });
 #pragma warning restore 612, 618
         }

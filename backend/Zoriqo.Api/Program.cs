@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Zoriqo.Infrastructure.Data;
 using Zoriqo.Infrastructure.Identity;
+using Zoriqo.Application.Interfaces;
+using Zoriqo.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,12 +64,14 @@ builder.Services
         options =>
         {
             options.BearerTokenExpiration =
-                TimeSpan.FromMinutes(1);
+                TimeSpan.FromMinutes(30);
 
             options.RefreshTokenExpiration =
                 TimeSpan.FromDays(7);
         });
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<ISkillService, SkillService>();
 
 var app = builder.Build();
 
